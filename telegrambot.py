@@ -7,7 +7,7 @@ import csv
 import logging
 
 # API Settings here
-telegramToken = "484913993:AAHjgjsdU_ofKC1lx6lnMXc4GXYn-KJkChI"
+#TOKEN = "484913993:AAHjgjsdU_ofKC1lx6lnMXc4GXYn-KJkChI"
 localFilePath = "C:\\Users\\1\\Desktop\\telegramDetails.csv"
 #localFilePath = "/Users/ivanchan/Desktop/telegramDetails.csv"
 
@@ -149,7 +149,7 @@ def cancel(bot, update):
 
 def main():
     # Create the Updater and pass it your bot's token.
-    updater = Updater(telegramToken)
+    updater = Updater(TOKEN)
 
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
