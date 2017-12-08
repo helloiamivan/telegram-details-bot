@@ -5,6 +5,7 @@ from telegram.ext import (Updater, CommandHandler, MessageHandler, Filters, Rege
                           ConversationHandler)
 import csv
 import logging
+import os
 
 # API Settings here
 #TOKEN = "484913993:AAHjgjsdU_ofKC1lx6lnMXc4GXYn-KJkChI"
@@ -148,11 +149,6 @@ def cancel(bot, update):
     return ConversationHandler.END
 
 def main():
-    # Create the Updater and pass it your bot's token.
-    updater = Updater(TOKEN)
-
-    # Get the dispatcher to register handlers
-    dp = updater.dispatcher
 
     # Add conversation handler
     conv_handler = ConversationHandler(
@@ -187,17 +183,25 @@ def main():
 
         fallbacks=[CommandHandler('cancel', cancel)]
     )
+    
+    # Create the Updater
+    PORT = int(os.environ.get('PORT', '5000'))
+    updater = Updater(TOKEN)
 
+    # Get the dispatcher to register handlers
+    dp = updater.dispatcher
+    
     dp.add_handler(conv_handler)
 
     # log all errors
     dp.add_error_handler(error)
 
-    # Start the Bot
-    updater.start_polling()
-
+    # Start bot
+    updater.start_webhook(listen="0.0.0.0",
+                          port=PORT,
+                          url_path=TOKEN)
+    updater.bot.set_webhook("https://telegram-details-bot.herokuapp.com/" + TOKEN)
     updater.idle()
-
 
 if __name__ == '__main__':
     print("Bot is running... Press Ctrl + C to end it")
