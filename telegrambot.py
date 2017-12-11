@@ -7,8 +7,10 @@ import csv
 import logging
 import os
 
+#from boto.s3.connection import S3Connection
+#TOKEN = S3Connection(os.environ['TELEGRAM_TOKEN'])
+
 # API Settings here
-#TOKEN = "484913993:AAHjgjsdU_ofKC1lx6lnMXc4GXYn-KJkChI"
 localFilePath = "C:\\Users\\1\\Desktop\\telegramDetails.csv"
 #localFilePath = "/Users/ivanchan/Desktop/telegramDetails.csv"
 
