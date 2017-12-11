@@ -185,7 +185,7 @@ def main():
     )
     
     # Create the Updater
-    PORT = int(os.environ.get('PORT', '5000'))
+    PORT = int(os.environ.get('PORT', '8443'))
     TOKEN = "490230105:AAE-qtQ3Db8fyx_i3McE9_hiezQAE3hKl1E"
     updater = Updater(TOKEN)
 
