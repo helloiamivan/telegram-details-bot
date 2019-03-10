@@ -1,18 +1,19 @@
 #!/usr/bin/env python
-
 from telegram import ReplyKeyboardMarkup
 from telegram.ext import (Updater, CommandHandler, MessageHandler, Filters, RegexHandler,
                           ConversationHandler)
 import csv
 import logging
 import os
+from boto.s3.connection import S3Connection
 
-#from boto.s3.connection import S3Connection
-#TOKEN = S3Connection(os.environ['TELEGRAM_TOKEN'])
+
+TOKEN = S3Connection(os.environ['TELEGRAM_TOKEN'])
 
 # API Settings here
+
+# Server file path
 localFilePath = "C:\\Users\\1\\Desktop\\telegramDetails.csv"
-#localFilePath = "/Users/ivanchan/Desktop/telegramDetails.csv"
 
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -73,14 +74,6 @@ def email_choice(bot, update, user_data):
         'Please input your email for us to contact you on the forked bitcoin lucky draw. (Enter "NIL" if you have no email)')
     return ETH_REQUEST
 
-    # if ("@" in text and "." in text) or (text == 'NIL'):
-    #   user_data['Email Address'] = text
-    #   return ETH_REQUEST
-
-    # else:
-    #   update.message.reply_text("Please check your email! Format should be xxxxx@xxxx.com")
-    #   return EMAIL_REQUEST
-
 def eth_choice(bot, update, user_data):
     text = update.message.text
     user_data['Email Address'] = text
@@ -88,13 +81,6 @@ def eth_choice(bot, update, user_data):
         'Please input your Ethereum address (Format should be 0x + 40 character hexadecimal).')
     return CHECK_INPUT
 
-    # if ("@" in text and "." in text) or (text == 'NIL') or (text == 'nil') or (text == ('Nil')):
-    #   user_data['Ethereum Address'] = text
-    #   return SUBMIT
-      
-    # else:
-    #   update.message.reply_text("Please check your Ethereum address! Format should be a 40 character hexadecimal")
-    #   return ETH_REQUEST
 def check_input(bot, update, user_data):
     text = update.message.text
     user_data['Ethereum Address'] = text
@@ -188,7 +174,6 @@ def main():
     
     # Create the Updater
     PORT = int(os.environ.get('PORT', '8443'))
-    TOKEN = "490230105:AAE-qtQ3Db8fyx_i3McE9_hiezQAE3hKl1E"
     updater = Updater(TOKEN)
 
     # Get the dispatcher to register handlers
